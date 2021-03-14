@@ -1,0 +1,17 @@
+Methods not moved
+1. processImageLine()
+2. parseCommandLine()
+3. clamp()
+
+- no clear association with classes
+- does not pass in/use objects of other classes 
+
+
+Ambiguous Methods
+in ImageStore
+1. loadImages()
+2. setAlpha()
+3. getCurrentImage()
+4. getImages()
+5. createImageColored()
+- kept as static, seemed right to put them here as they dealt with ImageStore
