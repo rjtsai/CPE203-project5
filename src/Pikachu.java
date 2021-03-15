@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-public class Charizard extends AnimationEntity implements Moveable{
+public class Pikachu extends AnimationEntity implements Moveable{
+    private static final String QUAKE_KEY = "quake";
+    private static final Random rand = new Random();
 
-    public Charizard(String id, Point position,
-                   List<PImage> images, int resourceLimit, int resourceCount,
-                   int actionPeriod, int animationPeriod)
+    public Pikachu(String id, Point position,
+                     List<PImage> images, int resourceLimit, int resourceCount,
+                     int actionPeriod, int animationPeriod)
     {
         super(id, position, images, actionPeriod, animationPeriod, 0);
     }
@@ -18,20 +20,20 @@ public class Charizard extends AnimationEntity implements Moveable{
             ImageStore imageStore,
             EventScheduler scheduler)
     {
-        Optional<Entity> minerTarget =
-                world.findNearest(this.position, MinerNotFull.class);
+        Optional<Entity> OreblobTgt =
+                world.findNearest(this.position, OreBlob.class);
         long nextPeriod = this.actionPeriod;
 
-        if (minerTarget.isPresent()) {
-            Point tgtPos = minerTarget.get().getPosition();
+        if (OreblobTgt.isPresent()) {
+            Point tgtPos = OreblobTgt.get().getPosition();
 
-            if (this.moveTo(world, minerTarget.get(), scheduler)) {
-                Fire fire = CreateFactory.createFire(tgtPos,
-                        imageStore.getImageList("fire"));
+            if (this.moveTo(world, OreblobTgt.get(), scheduler)) {
+                Lightning lightning = CreateFactory.createLightning(tgtPos,
+                        imageStore.getImageList("lightning"));
 
-                world.addEntity(fire);
+                world.addEntity(lightning);
                 nextPeriod += this.actionPeriod;
-                fire.scheduleActions(scheduler, world, imageStore);
+                lightning.scheduleActions(scheduler, world, imageStore);
             }
         }
 
@@ -68,6 +70,7 @@ public class Charizard extends AnimationEntity implements Moveable{
     public Point nextPosition(
             WorldModel world, Point destPos)
     {
+        Point currPos = this.position;
         AStarPathingStrategy pathing = new AStarPathingStrategy();
 
         List<Point> pathPoints = pathing.computePath(this.getPosition(), destPos,
@@ -75,9 +78,11 @@ public class Charizard extends AnimationEntity implements Moveable{
                 ((p1, p2) -> p1.adjacent(p2)),
                 PathingStrategy.CARDINAL_NEIGHBORS);
 
+
         if (pathPoints.isEmpty()){
             return this.getPosition();
         }
+
 
         return pathPoints.get(0);
     }

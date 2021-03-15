@@ -81,6 +81,13 @@ public class CreateFactory {
                 1100, 100);
     }
 
+    public static Lightning createLightning(Point pos,
+                                  List<PImage> images)
+    {
+        return new Lightning("lightning", pos, images,
+                1100, 100);
+    }
+
     public static Vein createVein(
             String id, Point pos, int actionPeriod, List<PImage> images)
     {

@@ -14,6 +14,9 @@ public class Parser {
     public static final int MINER_ACTION_PERIOD = 5;
     public static final int MINER_ANIMATION_PERIOD = 6;
 
+    public static final int CHARZ_ACTION_PERIOD = 5;
+    public static final int CHARZ_ANIMATION_PERIOD = 6;
+
     public static final String QUAKE_KEY = "quake";
     public static final String QUAKE_ID = "quake";
     public static final int QUAKE_ACTION_PERIOD = 1100;

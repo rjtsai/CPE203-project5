@@ -6,8 +6,8 @@ public final class VirtualWorld extends PApplet
 {
     public static final int TIMER_ACTION_PERIOD = 100;
 
-    public static final int VIEW_WIDTH = 640;
-    public static final int VIEW_HEIGHT = 480;
+    public static final int VIEW_WIDTH = 1300;
+    public static final int VIEW_HEIGHT = 1300;
     public static final int TILE_WIDTH = 32;
     public static final int TILE_HEIGHT = 32;
     public static final int WORLD_WIDTH_SCALE = 2;
@@ -124,16 +124,20 @@ public final class VirtualWorld extends PApplet
                 if (world.withinBounds(new Point(i, j))) {
                     world.setBackgroundCell(new Point(i, j), new Background("dirt", imageStore.getImageList("dirt")));
                     Vein newVein = new Vein("vein", new Point(i, j), imageStore.getImageList("vein"), 0, 0);
-                    Vein newVein1 = new Vein("vein", new Point(i, j), imageStore.getImageList("vein"), 0, 10000000);
                     if (box.contains(new Point(i, j))) {
-                        world.addEntity(newVein1);
-                        //newVein1.scheduleActions(scheduler, world, imageStore);
-                    } //else if (i == location.getX() -3 || )
+                        world.addEntity(newVein);
+                    }
                 }
             }
         }
+        Vein newVein1 = new Vein("vein", new Point(location.getX() - 3, location.getY() - 3), imageStore.getImageList("vein"), 4, 0);
+        world.addEntity(newVein1);
+        newVein1.scheduleActions(scheduler, world, imageStore);
         BlackSmith newBS = new BlackSmith("blacksmith", new Point(location.getX() + 2, location.getY() - 2), imageStore.getImageList("blacksmith"));
         world.addEntity(newBS);
+        Pikachu newPika = new Pikachu("pikachu", new Point(location.getX() + 2, location.getY() - 3), imageStore.getImageList("pikachu"), 0, 0,  Parser.CHARZ_ANIMATION_PERIOD, Parser.CHARZ_ANIMATION_PERIOD);
+        world.addEntity(newPika);
+        newPika.scheduleActions(scheduler, world, imageStore);
         /*
         Optional<Entity> warmMiner = world.findNearest(location, MinerEntity.class);
         if (warmMiner.isPresent()) {
