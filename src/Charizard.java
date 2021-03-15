@@ -28,12 +28,12 @@ public class Charizard extends AnimationEntity implements Moveable{
             Point tgtPos = minerTarget.get().getPosition();
 
             if (this.moveTo(world, minerTarget.get(), scheduler)) {
-                Quake quake = CreateFactory.createQuake(tgtPos,
-                        imageStore.getImageList(Parser.QUAKE_KEY));
+                Fire fire = CreateFactory.createFire(tgtPos,
+                        imageStore.getImageList("fire"));
 
-                world.addEntity(quake);
+                world.addEntity(fire);
                 nextPeriod += this.actionPeriod;
-                quake.scheduleActions(scheduler, world, imageStore);
+                fire.scheduleActions(scheduler, world, imageStore);
             }
         }
 

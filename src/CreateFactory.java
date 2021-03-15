@@ -74,6 +74,13 @@ public class CreateFactory {
                 Parser.QUAKE_ACTION_PERIOD, Parser.QUAKE_ANIMATION_PERIOD);
     }
 
+    public static Fire createFire(Point pos,
+                                    List<PImage> images)
+    {
+        return new Fire("fire", pos, images,
+                1100, 100);
+    }
+
     public static Vein createVein(
             String id, Point pos, int actionPeriod, List<PImage> images)
     {
