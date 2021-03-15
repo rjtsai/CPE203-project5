@@ -53,6 +53,8 @@ public final class WorldModel
                     return Parser.parseSmith(properties, this, imageStore);
                 case Parser.VEIN_KEY:
                     return Parser.parseVein(properties, this, imageStore);
+                case Parser.STONEBGND_KEY:
+                    return Parser.parseStoneBackground(properties, this, imageStore);
             }
         }
 
@@ -163,7 +165,7 @@ public final class WorldModel
         }
     }
 
-    private void setBackgroundCell(
+    public void setBackgroundCell(
             Point pos, Background background)
     {
         this.background[pos.y][pos.x] = background;

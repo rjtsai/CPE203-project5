@@ -60,6 +60,8 @@ public class Parser {
     public static final int VEIN_ROW = 3;
     public static final int VEIN_ACTION_PERIOD = 4;
 
+    public static final String STONEBGND_KEY = "stone";
+
     public static boolean parseVein(
             String[] properties, WorldModel world, ImageStore imageStore)
     {
@@ -122,6 +124,20 @@ public class Parser {
     }
 
     public static boolean parseBackground(
+            String[] properties, WorldModel world, ImageStore imageStore)
+    {
+        if (properties.length == BGND_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[BGND_COL]),
+                    Integer.parseInt(properties[BGND_ROW]));
+            String id = properties[BGND_ID];
+            world.setBackground(pt,
+                    new Background(id, imageStore.getImageList(id)));
+        }
+
+        return properties.length == BGND_NUM_PROPERTIES;
+    }
+
+    public static boolean parseStoneBackground(
             String[] properties, WorldModel world, ImageStore imageStore)
     {
         if (properties.length == BGND_NUM_PROPERTIES) {

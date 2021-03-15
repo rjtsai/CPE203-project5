@@ -57,6 +57,16 @@ public class CreateFactory {
                 actionPeriod, animationPeriod);
     }
 
+    public static Charizard createCharizard(
+            String id, Point pos,
+            int actionPeriod,
+            int animationPeriod,
+            List<PImage> images)
+    {
+        return new Charizard(id, pos, images, 0, 0,
+                actionPeriod, animationPeriod);
+    }
+
     public static Quake createQuake(Point pos,
             List<PImage> images)
     {

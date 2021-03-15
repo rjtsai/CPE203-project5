@@ -1,5 +1,7 @@
 import processing.core.*;
 
+import java.util.LinkedList;
+
 public final class VirtualWorld extends PApplet
 {
     public static final int TIMER_ACTION_PERIOD = 100;
@@ -35,6 +37,7 @@ public final class VirtualWorld extends PApplet
     public WorldModel world;
     public WorldView view;
     public EventScheduler scheduler;
+    public Viewport viewPort;
 
     public long nextTime;
 
@@ -95,6 +98,66 @@ public final class VirtualWorld extends PApplet
             view.shiftView(dx, dy);
         }
     }
+
+    public void mousePressed()
+    {
+        Point location = mouseToPoint(mouseX, mouseY);
+        LinkedList<Point> box = new LinkedList<>();
+        box.add(new Point(location.getX() +1, location.getY()));
+        box.add(new Point(location.getX() +1, location.getY()+1));
+        box.add(new Point(location.getX() +1, location.getY()-1));
+        box.add(new Point(location.getX() -1, location.getY()));
+        box.add(new Point(location.getX() -1, location.getY()+1));
+        box.add(new Point(location.getX() -1, location.getY()-1));
+        box.add(new Point(location.getX(), location.getY()+1));
+        box.add(new Point(location.getX(), location.getY()-1));
+        Charizard newCharz = CreateFactory.createCharizard("charizard", location, 0, 0, imageStore.getImageList("charizard"));
+                //new Charizard("charizard", location,imageStore.getImageList("charizard"), 0, 0, 40, 100);
+        if (!(world.isOccupied(location))) {
+            world.addEntity(newCharz);
+            newCharz.scheduleActions(scheduler, world, imageStore);
+        }
+
+
+        for (int i = location.getX() - 3; i < location.getX() + 4; i++) {
+            for (int j = location.getY() - 3; j < location.getY() + 4; j++) {
+                if (world.withinBounds(new Point(i, j))) {
+                    world.setBackgroundCell(new Point(i, j), new Background("dirt", imageStore.getImageList("dirt")));
+                    Vein newVein = new Vein("vein", new Point(i, j), imageStore.getImageList("vein"), 0, 0);
+                    Vein newVein1 = new Vein("vein", new Point(i, j), imageStore.getImageList("vein"), 0, 10000000);
+                    if (box.contains(new Point(i, j))) {
+                        world.addEntity(newVein1);
+                        //newVein1.scheduleActions(scheduler, world, imageStore);
+                    } //else if (i == location.getX() -3 || )
+                }
+            }
+        }
+        BlackSmith newBS = new BlackSmith("blacksmith", new Point(location.getX() + 2, location.getY() - 2), imageStore.getImageList("blacksmith"));
+        world.addEntity(newBS);
+        /*
+        Optional<Entity> warmMiner = world.findNearest(location, MinerEntity.class);
+        if (warmMiner.isPresent()) {
+            MinerEntity realWarmMiner = ((MinerEntity)(warmMiner.get()));
+            MovableEntity miner = new ColdMiner("frozenminer", realWarmMiner.getPosition(), imageStore.getImageList("frozenminer"),realWarmMiner.getActionPeriod() * 20, realWarmMiner.getAnimationPeriod() * 10, realWarmMiner);
+            world.removeEntity(realWarmMiner);
+            scheduler.unscheduleAllEvents(realWarmMiner);
+            scheduler.scheduleActions(miner, world, imageStore);
+
+            world.addEntity(miner);
+        }
+
+         */
+
+    }
+
+    private Point mouseToPoint(int x, int y)
+    {
+        return new Point(mouseX/TILE_WIDTH, mouseY/TILE_HEIGHT);
+    }
+
+
+
+
     public void scheduleActions(WorldModel world,
             EventScheduler scheduler, ImageStore imageStore)
     {
