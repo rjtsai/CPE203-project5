@@ -134,23 +134,11 @@ public final class VirtualWorld extends PApplet
         world.addEntity(newVein1);
         newVein1.scheduleActions(scheduler, world, imageStore);
         BlackSmith newBS = new BlackSmith("blacksmith", new Point(location.getX() + 2, location.getY() - 2), imageStore.getImageList("blacksmith"));
-        world.addEntity(newBS);
+        //world.addEntity(newBS);
         Pikachu newPika = new Pikachu("pikachu", new Point(location.getX() + 2, location.getY() - 3), imageStore.getImageList("pikachu"), 0, 0,  Parser.CHARZ_ANIMATION_PERIOD, Parser.CHARZ_ANIMATION_PERIOD);
         world.addEntity(newPika);
         newPika.scheduleActions(scheduler, world, imageStore);
-        /*
-        Optional<Entity> warmMiner = world.findNearest(location, MinerEntity.class);
-        if (warmMiner.isPresent()) {
-            MinerEntity realWarmMiner = ((MinerEntity)(warmMiner.get()));
-            MovableEntity miner = new ColdMiner("frozenminer", realWarmMiner.getPosition(), imageStore.getImageList("frozenminer"),realWarmMiner.getActionPeriod() * 20, realWarmMiner.getAnimationPeriod() * 10, realWarmMiner);
-            world.removeEntity(realWarmMiner);
-            scheduler.unscheduleAllEvents(realWarmMiner);
-            scheduler.scheduleActions(miner, world, imageStore);
 
-            world.addEntity(miner);
-        }
-
-         */
 
     }
 
