@@ -6,8 +6,8 @@ public final class VirtualWorld extends PApplet
 {
     public static final int TIMER_ACTION_PERIOD = 100;
 
-    public static final int VIEW_WIDTH = 1300;
-    public static final int VIEW_HEIGHT = 1300;
+    public static final int VIEW_WIDTH = 640;
+    public static final int VIEW_HEIGHT = 500;
     public static final int TILE_WIDTH = 32;
     public static final int TILE_HEIGHT = 32;
     public static final int WORLD_WIDTH_SCALE = 2;
@@ -130,14 +130,13 @@ public final class VirtualWorld extends PApplet
                 }
             }
         }
-        Vein newVein1 = new Vein("vein", new Point(location.getX() - 3, location.getY() - 3), imageStore.getImageList("vein"), 4, 0);
-        world.addEntity(newVein1);
-        newVein1.scheduleActions(scheduler, world, imageStore);
-        BlackSmith newBS = new BlackSmith("blacksmith", new Point(location.getX() + 2, location.getY() - 2), imageStore.getImageList("blacksmith"));
-        //world.addEntity(newBS);
         Pikachu newPika = new Pikachu("pikachu", new Point(location.getX() + 2, location.getY() - 3), imageStore.getImageList("pikachu"), 0, 0,  Parser.CHARZ_ANIMATION_PERIOD, Parser.CHARZ_ANIMATION_PERIOD);
         world.addEntity(newPika);
         newPika.scheduleActions(scheduler, world, imageStore);
+
+        Pikachu newPika1 = new Pikachu("pikachu", new Point(location.getX() - 2, location.getY() + 3), imageStore.getImageList("pikachu"), 0, 0,  Parser.CHARZ_ANIMATION_PERIOD, Parser.CHARZ_ANIMATION_PERIOD);
+        world.addEntity(newPika1);
+        newPika1.scheduleActions(scheduler, world, imageStore);
 
 
     }

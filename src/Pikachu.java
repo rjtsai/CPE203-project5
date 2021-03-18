@@ -48,8 +48,14 @@ public class Pikachu extends AnimationEntity implements Moveable{
             EventScheduler scheduler)
     {
         if (getPosition().adjacent(target.getPosition())) {
-            world.removeEntity(target);
-            scheduler.unscheduleAllEvents(target);
+            //world.removeEntity(target);
+            Point newP = target.getPosition().teleport();
+            while (!world.withinBounds(newP)) {
+                newP = target.getPosition().teleport();
+                System.out.println("Out of bounds: " + newP.toString());
+            }
+            world.moveEntity(target, newP);
+            //scheduler.unscheduleAllEvents(target);
             return true;
         }
         else {

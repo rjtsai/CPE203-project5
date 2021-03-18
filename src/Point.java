@@ -70,4 +70,12 @@ public final class Point
     public int calculateD(Point goal) { // Meant to be set to h
         return Math.abs(goal.getY() - this.getY()) + Math.abs(goal.getX() - this.getX());
     }
+
+    public Point teleport() {
+        int dispX = -2 + (int)(Math.random() * ((3 + 2) + 1));
+        int dispY = -2 + (int)(Math.random() * ((3 + 2) + 1));
+        Point newP = new Point(this.getX() + dispX,
+                this.getY() + dispY);
+        return newP;
+    }
 }
